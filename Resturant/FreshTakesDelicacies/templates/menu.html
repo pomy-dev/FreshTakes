@@ -1,0 +1,215 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}
+F.T.D Menu
+{% endblock %}
+
+{% block midContent %}
+<link rel="stylesheet" href="{% static 'assets/css/menu.css' %}">
+
+<div id="page" class="site">
+    <main>
+        <div class="form-box">
+            <div class="top">
+                <div class="container">
+                    <ul>
+                        <li class="indicator active">
+                            <a href="#"><i class="ri-checkbox-blank-circle-line"></i></a>Choose Field
+                        </li>
+                        <li class="indicator">
+                            <a href="#"><i class="ri-checkbox-blank-circle-line"></i></a>Your Profile
+                        </li>
+                        <li class="indicator">
+                            <a href="#"><i class="ri-checkbox-blank-circle-line"></i></a>Your Story
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- top -->
+            <div class="menu">
+                <form action="" method="POST" id="menu_form" enctype='multipart/form-data'>
+                    {% csrf_token %}
+                    <div class="field form-child active">
+                        <h2>Choose category of meal <br>you want to cook</h2>
+                        <div class="wrapper">
+                            <div class="faculty">
+                                <div class="icon salads"><img src="{% static 'assets/img/salad.png' %}" alt="png">
+                                </div>
+                                <h3>Salads</h3>
+                                <ul>
+                                    <li><input type="radio" name="faculty" value="Vegetable Salad" id="1">
+                                        <label for="1">Vegetable Salad</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Mixed Salad" id="2">
+                                        <label for="2">Mixed Salad</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Fruit Salad" id="3">
+                                        <label for="3">Fruit Salad</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="faculty">
+                                <div class="icon meat"><img src="{% static 'assets/img/meat.png' %}" alt=".png">
+                                </div>
+                                <h3>Meats</h3>
+                                <ul>
+                                    <li><input type="radio" name="faculty" value="Chicken" id="4">
+                                        <label for="4">Chicken</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Beef" id="5">
+                                        <label for="5">Beef</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Mutton" id="6">
+                                        <label for="6">Mutton</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="faculty">
+                                <div class="icon starch"><img src="{% static 'assets/img/starch.png'%}" alt=".png">
+                                </div>
+                                <h3>Starch</h3>
+                                <ul>
+                                    <li><input type="radio" name="faculty" value="Bakery" id="7">
+                                        <label for="7">Bakery</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Bulb Starch" id="8">
+                                        <label for="8">Bulb Starch</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Cereals" id="9">
+                                        <label for="9">Cereals</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="faculty">
+                                <div class="icon relishes"><img src="{% static 'assets/img/relish.png' %}" alt=".png">
+                                </div>
+                                <h3>Relishes</h3>
+                                <ul>
+                                    <li><input type="radio" name="faculty" value="Legumes" id="10">
+                                        <label for="10">Legumes</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Green Relishes" id="11">
+                                        <label for="11">Green Relishes</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Soup" id="12">
+                                        <label for="12">Soup</label>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="faculty">
+                                <div class="icon consumables"><img src="{% static 'assets/img/consumables.png' %}"
+                                        alt=".png">
+                                </div>
+                                <h3>Light-Meals</h3>
+                                <ul>
+                                    <li><input type="radio" name="faculty" value="Thin Porridge" id="13">
+                                        <label for="13">Thin Porridge</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Wheat & Corn" id="14">
+                                        <label for="14">Wheat & Corn</label>
+                                    </li>
+                                    <li><input type="radio" name="faculty" value="Deserts" id="15">
+                                        <label for="15">Deserts</label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper">
+                        <div class="highlight">
+                            <div class="head">
+                                <div class="thumbnail">
+                                    <img class="photo" src="{% static 'assets/img/bg.jpeg' %}" alt=".jpeg">
+                                </div>
+                                <div class="split">
+                                    <div class="name">
+                                        <h4>
+                                            <strong class="firstname">Preview Meal Dish</strong>
+                                        </h4>
+                                        <span>
+                                            <span class="month" id="month"></span>
+                                        </span>
+                                    </div>
+                                    <div class="divider"></div>
+                                    <div class="country">
+                                        <span class="nationality">By Today's Cook</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- head -->
+                            <div class="wrapper">
+                                <h4>Category(s) selected:</h4>
+                                <div class="field-selected"></div>
+                            </div>
+                        </div>
+                        <!-- highlight -->
+                        <div class="profile form-child">
+                            <h2>Fill out the meal details you want displayed</h2>
+                            <div class="wrapper">
+                                <div class="row personal">
+                                    <div class="heading">
+                                        <div class="icon"><img src="{% static 'assets/img/cook.png' %}" alt="cook">
+                                        </div>
+                                        <h3>Dish Details</h3>
+                                    </div>
+                                    <div class="upload split">
+                                        <p>
+                                            <label for="uploader">Upload meal dish</label>
+                                            <input type="file" name="photo" id="uploader">
+                                        </p>
+                                    </div>
+                                    <div class="split">
+                                        <p>
+                                            <label for="">Dish Name</label>
+                                            <input type="text" name="dish" class="fname" placeholder="Meal Stew"
+                                                required>
+                                        </p>
+                                    </div>
+                                    <p>
+                                        <label for="">Price</label>
+                                        <input type="number" name="price" placeholder="00.00" required>
+                                    </p>
+                                    <p>
+                                        <label for="">Time to be Served</label>
+                                        <input type="time" name="time" placeholder="12:00 AM" required>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- profile -->
+                        <div class="story form-child ">
+                            <h2>Add discription about meal (optional)</h2>
+                            <div class="wrapper">
+                                <div class="row academic">
+                                    <div class="heading">
+                                        <div class="icon">
+                                            <i class="ri-character-recognition-line ri-2x"></i>
+                                        </div>
+                                        <h3>Extra details about meal</h3>
+                                    </div>
+                                    <p>
+                                        <label for="">Brief details</label>
+                                        <textarea name="story" id="" cols="30" rows="10" required></textarea>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <nav>
+                        <a href="#0" class="prev">Back</a>
+                        <a href="#0" class="next">Continue</a>
+                        <button type="submit" class="submit">Submit</button>
+                    </nav>
+                </form>
+            </div>
+
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block rightContent %}
+<div class="sales-analytics">
+    <h2>Preview Menu</h2>
+</div>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}
+  F.T.D Menu
+{% endblock %}
+
+{% block midContent %}
+<link rel="stylesheet" href="{% static 'assets/css/bookings.css' %}">
+
+  <section id="booking-filter">
+    <label for="status-filter">Filter by Status: </label>
+    <select id="status-filter" class="booking-select">
+      <option value="all">All</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="pending">Pending</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+  </section>
+  
+  <section class="booking-select" id="booking-list">
+    <h2>Bookings</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Service</th>
+          <th>Status</th>
+          <th>Contacts</th>
+          <th>Booking Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="booking-table-body">
+        <!-- Booking rows will be dynamically populated -->
+      </tbody>
+    </table>
+  </section>
+{% endblock %}
+
+{% block rightContent %}
+  <div class="sales-analytics">
+
+  </div>
+{% endblock %}

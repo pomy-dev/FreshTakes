@@ -1,0 +1,44 @@
+.container-analytics {
+    width: 90%;
+    margin: auto;
+}
+
+.container-analytics h2 {
+    text-align: center;
+}
+
+.container-analytics .card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-analytics table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.container-analytics th,
+.container-analytics td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.container-analytics th {
+    background: #007bff;
+    color: white;
+}
+
+.container-analytics .best {
+    color: green;
+    font-weight: bold;
+}
+
+.container-analytics .poor {
+    color: red;
+    font-weight: bold;
+}

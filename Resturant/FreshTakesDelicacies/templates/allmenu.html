@@ -1,0 +1,306 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}
+F.T.D All-Menu
+{% endblock %}
+
+{% block midContent %}
+<link rel="stylesheet" href="{% static 'assets/css/allmenu.css' %}">
+
+  <div class="menu-filters">
+    <span>
+      Filter
+    </span>
+    <select id="selectedMenu">
+      <option value="Breakfast" selected>
+        Breakfast Meals
+      </option>
+      <option value="Lunch">
+        Lunch Meals
+      </option>
+      <option value="Dessets">
+        Deserts Meals
+      </option>
+    </select>
+  </div>
+  {% comment %} Break fast meals {% endcomment %}
+  <div class="menu-section" id='Breakfast'>
+    <span class="menu-header">
+      Break Fast
+    </span>
+    <ul>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  {% comment %} Lunch Meals {% endcomment %}
+  <div class="menu-section" id="Lunch">
+    <span class="menu-header">
+      Lunch Menu
+    </span>
+    <ul>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  {% comment %} Deserts Meals {% endcomment %}
+  <div class="menu-section" id="Dessets">
+    <span class="menu-header">
+      Desserts
+    </span>
+    <ul>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="menu-outline">
+          <div class="icon">
+            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
+          </div>
+          <div class="meal-dis">
+            <p>Meal Stew</p>
+            <small>Meal Category</small>
+            &nbsp;&nbsp;&nbsp;
+            <span>Home Style Made</span>
+            <p>E20.00</p>
+          </div>
+          <div class="actions">
+            <button type="reset">
+              <span class="material-symbols-sharp" Style="color:#111e88;">
+                undo
+              </span>
+              Re-Publish
+            </button>
+            <button type="submit">
+              <span class="material-symbols-sharp" Style="color:#FF0000;">
+                delete
+              </span>
+              Delete
+            </button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+{% endblock %}

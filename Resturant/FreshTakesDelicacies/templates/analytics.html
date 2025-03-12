@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}
+  F.T.D Analytics
+{% endblock %}
+
+{% block midContent %}
+  <link rel="stylesheet" href="{% static 'assets/css/analytics.css' %}">
+
+  <div class="container-analytics">
+      <h2>Fresh Takes Analytics</h2>
+      
+      <div class="card">
+          <h3>Most Liked Meal Categories</h3>
+          <canvas id="mealCategoryChart"></canvas>
+      </div>
+      
+      <div class="card">
+          <h3>Website Visits by Time</h3>
+          <canvas id="websiteVisitsChart"></canvas>
+      </div>
+  </div>
+{% endblock %}
+

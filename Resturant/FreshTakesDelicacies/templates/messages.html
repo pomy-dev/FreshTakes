@@ -1,0 +1,200 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+  F.T.D Messages
+{% endblock %}
+
+{% block midContent %}
+<link rel="stylesheet" href="{% static 'assets/css/messages.css' %}">
+
+<div class="container-msg">
+    <h2>Clients Messages</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Message</th>
+                <th>Date</th>
+                <th>Reply</th>
+            </tr>
+        </thead>
+        <tbody id="messageTableBody">
+            <!-- Messages will be inserted here by JavaScript -->
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be inserted here by JavaScript -->
+    </div>
+</div>
+
+{% comment %} JavaScript {% endcomment %}
+<script>
+  const messages = [
+      { id: 1, name: "John Doe", email: "john@example.com", content: "Hello, Can you please help me with directions. I am at the Riverstone Mall right now.", date: "2024-02-27 10:30" },
+      { id: 2, name: "Jane Smith", email: "jane@example.com", content: "Can you call me?", date: "2024-02-26 14:15" },
+      { id: 3, name: "Michael Brown", email: "michael@example.com", content: "Great service!", date: "2024-02-25 18:45" },
+      { id: 4, name: "Emily White", email: "emily@example.com", content: "I have a question.", date: "2024-02-24 09:20" },
+      { id: 5, name: "Robert Johnson", email: "robert@example.com", content: "Can you send details?", date: "2024-02-23 12:05" },
+      { id: 6, name: "Linda Williams", email: "linda@example.com", content: "Thank you!", date: "2024-02-22 16:30" },
+      { id: 7, name: "David Martinez", email: "david@example.com", content: "I need more info.", date: "2024-02-21 11:50" },
+      { id: 8, name: "Sarah Davis", email: "sarah@example.com", content: "How can I register?", date: "2024-02-20 08:10" }
+  ];
+
+  const messagesPerPage = 5;
+  let currentPage = 1;
+
+  function displayMessages() {
+      const startIndex = (currentPage - 1) * messagesPerPage;
+      const endIndex = startIndex + messagesPerPage;
+      const paginatedMessages = messages.slice(startIndex, endIndex);
+
+      const tableBody = document.getElementById("messageTableBody");
+      tableBody.innerHTML = ""; // Clear previous messages
+
+      paginatedMessages.forEach((msg, index) => {
+          const row = `
+            <tr>
+              <td>${startIndex + index + 1}</td>
+              <td>${msg.name}</td>
+              <td>${msg.email}</td>
+              <td class="ellipses">${msg.content}</td>
+              <td>${msg.date}</td>
+              <td class="pick-chart"><input type='radio' name='chart' value='${msg.id}' onclick="showChart(${msg.id})" /></td>
+            </tr>`; 
+          tableBody.innerHTML += row;
+      });
+
+      displayPagination();
+  }
+
+  function displayPagination() {
+      const totalPages = Math.ceil(messages.length / messagesPerPage);
+      const paginationContainer = document.getElementById("pagination");
+      paginationContainer.innerHTML = ""; // Clear previous pagination
+
+      if (currentPage > 1) {
+          paginationContainer.innerHTML += `<button onclick="changePage(1)">First</button>`;
+          paginationContainer.innerHTML += `<button onclick="changePage(${currentPage - 1})">Previous</button>`;
+      }
+
+      paginationContainer.innerHTML += `<span class="current-page">${currentPage}</span>`;
+
+      if (currentPage < totalPages) {
+          paginationContainer.innerHTML += `<button onclick="changePage(${currentPage + 1})">Next</button>`;
+          paginationContainer.innerHTML += `<button onclick="changePage(${totalPages})">Last</button>`;
+      }
+  }
+
+  function changePage(page) {
+      currentPage = page;
+      displayMessages();
+  }
+
+  function showChart(messageId) {
+    const message = messages.find(msg => msg.id === messageId);
+    if (!message) return;
+
+    // Clear the previous chat
+    const clientChart = document.querySelector(".sales-analytics");
+    clientChart.innerHTML = "<h2>Reply Message</h2>";
+
+    // Populate the chart with the selected message
+    let conversation = document.createElement('div');
+    conversation.classList.add('chart');
+
+    conversation.innerHTML = `
+      <div class="mssg">
+        <div class="client-profile">
+          <div class="person">
+            <span class="material-symbols-sharp">person</span>
+          </div>&nbsp;&nbsp;
+          <span class='user-email'>${message.email}</span>
+        </div>
+        <p>${message.content}</p>
+      </div>
+
+      <div class="rply">
+        {% comment %} <div class="person">
+          <img src="{% static 'assets/img/res_logo.png' %}" alt='Logo' />
+        </div>
+        <p></p> {% endcomment %}
+      </div> 
+
+      <div class="mssg-rply">
+        <textarea name="mssg-rply" class="chart-input" placeholder="Text here..." rows="1"></textarea>
+      </div>
+      
+      <button class="chart-submit" type="submit" onclick="showMessage()">Send</button>
+    `;
+
+    clientChart.appendChild(conversation);
+
+    // Enable auto resizing of the reply textarea
+    const inputField = conversation.querySelector(".chart-input");
+    inputField.addEventListener("input", function () {
+        this.style.height = "40px"; // Reset height to default
+        this.style.height = this.scrollHeight + "px"; // Expand based on content
+    });
+
+  }
+
+// Initial load
+  displayMessages();
+</script>
+
+{% endblock %}
+
+{% block rightContent %}
+  <div class="sales-analytics">
+  {% comment %} Chats display here {% endcomment %}
+  </div>
+
+  <script>
+    function showMessage() {
+      const inputField = document.querySelector(".mssg-rply textarea[name='mssg-rply']");
+      const adminMssgContaner = document.querySelector(".rply");
+
+      const adminMssg = inputField.value;
+
+      if (adminMssg.trim() === "") {
+        alert("Please type a message.");
+        return;
+      }
+
+      let rplyStr = document.createElement('div');
+      rplyStr.innerHTML = `
+        <div class="person">
+          <img src="{% static 'assets/img/res_logo.png' %}" alt='Logo' />
+        </div>
+        <p>${adminMssg}</p>
+      `;
+
+      // Add admin message to the chat area
+      adminMssgContaner.appendChild(rplyStr);
+
+      // Clear the input field after sending the message
+      inputField.value = "";
+
+      // Reset height of the input field
+      inputField.style.height = "40px"; 
+    } 
+
+    // Attach event listener to the Send button after page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const chatSendBtn = document.querySelector("button.chart-submit");
+      chatSendBtn.addEventListener('click', showMessage); // Use event listener here
+
+      // Auto-resize the textarea
+      const inputField = document.querySelector(".mssg-rply textarea[name='mssg-rply']");
+      inputField.addEventListener("input", function () {
+        this.style.height = "40px"; // Reset height to default
+        this.style.height = this.scrollHeight + "px"; // Expand based on content
+      });
+    });
+  </script>
+{% endblock %}
