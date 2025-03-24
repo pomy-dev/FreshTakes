@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const formShow = document.querySelectorAll('.form-child');
     const buttonUpload = document.querySelector("button[type='submit']");
     let active = 1;
-    let categoryItem = '';
 
     nextButton.addEventListener('click', () => {
         active++;
@@ -45,27 +44,62 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // faculty selected
-        var selected_studies = document.querySelectorAll('input[type="radio"]:checked'),
+        var selected_studies = document.querySelectorAll('input[type="radio"]'),
             selected_studies_html = '';
         for (var study of selected_studies) {
             if (study.checked) {
-                categoryItem = study.value
-
                 let parent = study.closest('.faculty'),
                     study_name = study.value,
                     faculty = parent.querySelector('h3').innerHTML;
                 icon = parent.querySelector('.icon').outerHTML;
 
                 selected_studies_html += `
-            <div class="faculty">
-                ${icon}
-                <h3>${faculty}</h3>
-                <span>${study_name}</span>
-            </div> `;
+                    <div class="faculty">
+                        ${icon}
+                        <h3>${faculty}</h3>
+                        <span>${study_name}</span>
+                    </div> 
+                `;
             }
         }
         document.querySelector('.field-selected').innerHTML = selected_studies_html;
     }
+
+
+    // add menu preview
+    const uploadedDishes = document.querySelector(".sales-analytics");
+    const showOrLess = document.querySelector(".show-more")
+    const showBtn = document.querySelector(".show-more a")
+
+    let today_dishes = uploadedDishes.children;
+
+    function updateUploads() {
+        if (today_dishes.length >= 5) {
+            showOrLess.style.display = 'block';
+            uploadedDishes.style.overflowY = 'scroll';
+            uploadedDishes.scrollTop = 0;
+        } else {
+            showOrLess.style.display = 'none';
+        }
+
+        // showBtn.addEventListener('click', function (e) {
+        //     e.preventDefault();
+
+        //     if (showBtn.textContent === 'Show All') {
+        //         setTimeout(() => {
+        //             uploadedDishes.scrollTop = uploadedDishes.scrollHeight
+        //         }, 200);
+        //         // showBtn.textContent = 'Show Less'
+        //     } else {
+        //         setTimeout(() => {
+        //             uploadedDishes.scrollTop = 0;
+        //         }, 200);
+        //         // showBtn.textContent = 'Show All'
+        //     }
+        // });
+    }
+
+    // updateUploads();
 
     // photo preview
     document.querySelector('input[name="photo"]').addEventListener('change', function (e) {
@@ -76,11 +110,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     })
 
-    // buttonUpload.addEventListener('click', () => updateSelectedMeals());
-    buttonUpload.addEventListener('click', () => {
-        let isIt = confirm(`Are you checking: ${categoryItem}`)
-        pushToDB()
-    });
+    buttonUpload.addEventListener('submit', updateSelectedMeals);
+    // buttonUpload.addEventListener('submit', pushToDB);
 
     function getCSRFToken() {
         let cookieValue = null;
@@ -97,82 +128,16 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookieValue;
     }
 
-    // add menu
-    const selectedContainer = document.querySelector(".sales-analytics");
-
     function updateSelectedMeals() {
 
         pushToDB();
-
-        let mealName = document.querySelector("input[name='dish']").value;
-        let price = document.querySelector("input[name='price']").value;
-        let time = document.querySelector("input[name='time']").value;
-        let descr = document.querySelector("textarea[name='story']").value;
-
-        // Get all checked radio buttons
-        const selectedRadios = document.querySelectorAll("input[type='radio']:checked");
-
-        selectedRadios.forEach((radio) => {
-            const category = radio.name.match(/\[(.*?)\]/)[1]; // Extract category from name attribute
-            const categoryKind = radio.value;
-
-            // Create a new div for the selected category
-            const mealPrev = document.createElement("div");
-            mealPrev.classList.add("item");
-            mealPrev.classList.add("onlion");
-
-            // Assign appropriate icons (You can modify the icons based on category)
-            let img = "cook.png"; // Default icon
-            if (category === "salads") img = "salad";
-            else if (category === "meat") img = "meat";
-            else if (category === "starch") img = "starch";
-            else if (category === "relishes") img = "relish";
-            else if (category === "consumables") img = "consumables";
-
-            // Construct the HTML for the sidebar preview
-            mealPrev.innerHTML = `
-                <div class="icon">
-                    <span class="material-symbols-sharp">done_all</span>
-                </div>
-                <div class="right_text">
-                    <div class="info">
-                        <h3>${mealName}</h3>
-                        <small class="text-muted">${descr}</small>
-                    </div>
-                    <h5 class="primary">E${price}</h5>
-                    <h3>${categoryKind.charAt(0).toUpperCase() + categoryKind.slice(1)} Category</h3>
-                </div>
-            `;
-
-            selectedContainer.appendChild(mealPrev);
-
-            document.querySelector("input[name='dish']").value = "";
-            document.querySelector("input[name='price']").value = "";
-            document.querySelector("input[name='time']").value = "";
-            document.querySelector("input[name='photo']").value = "";
-            document.querySelector("textarea[name='story']").value = "";
-        });
-
-        document.querySelectorAll("input[type='radio']").forEach(radio => {
-            radio.checked = false;
-            document.querySelector('.field-selected').innerHTML = ""
-        });
 
         active = 1;
         updateProgress();
     }
 
-    async function pushToDB() {
-
-        const formData = new FormData(document.querySelector("form"));
-
-        // Append form values to FormData
-        formData.append("category", categoryItem); // Store categories as JSON
-        formData.append("dish", document.querySelector("input[name='dish']").value);
-        formData.append("price", document.querySelector("input[name='price']").value);
-        formData.append("time", document.querySelector("input[name='time']").value); // Get uploaded file
-        formData.append("story", document.querySelector("textarea[name='story']").value);
-
+    async function pushToDB(event) {
+        event.preventDefault();
 
         const csrfToken = getCSRFToken(); // Function to get CSRF token from cookies
         if (!csrfToken) {
@@ -180,29 +145,51 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        let selectedCategory = document.querySelector("input[type='radio']:checked");
+        if (!selectedCategory) {
+            alert("Category not selected! Please select a meal category.");
+            return;
+        }
+        let category = selectedCategory.value;
+
+        // Create a FormData object for form-encoded submission
+        let formData = new FormData();
+        formData.append("csrfmiddlewaretoken", csrfToken);
+
+        // Retrieve the file
+        let fileInput = document.querySelector("input[name='photo']");
+        if (fileInput.files.length > 0) {
+            formData.append("photo", fileInput.files[0]); // Append image file
+        } else {
+            alert("Please select meal image!");
+            return;
+        }
+
+        formData.append("faculty", category);
+        formData.append("dish", document.querySelector("input[name='dish']").value);
+        formData.append("price", document.querySelector("input[name='price']").value);
+        formData.append("time", document.querySelector("input[name='time']").value);
+        formData.append("story", document.querySelector("textarea[name='story']").value);
+
         try {
             // Send data to Django using Fetch API
-            const response = await fetch("/addmenu", {
+            fetch("/addmenu/", {
                 method: "POST",
-                body: formData,
                 headers: {
-                    "X-CSRFToken": csrfToken
-                }
+                    "X-CSRFToken": csrfToken,
+                },
+                body: formData
+            }).then(response => response.json()).then(data => {
+                console.log(`Response Data: ${data}`);
+            }).catch(error => {
+                console.log(`=======${error}=======`);
+                console.log(option);
+                alert(`Error submitting data: ${error}`);
             });
-            const data = await response.json();
-
-            if (response.ok) {
-                console.log("Success:", data);
-                updateSelectedMeals();
-            } else {
-                alert("Error uploading menu. Please try again.");
-            }
 
         } catch (error) {
-            console.error("Fetch error:", error);
-            alert("Failed to send request.");
+            alert(`Failed to send request: ${error}`);
         }
     }
-
 
 });

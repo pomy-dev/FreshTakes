@@ -76,18 +76,28 @@ WSGI_APPLICATION = 'Resturant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'FreshTakesDelicacies',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': 'mongodb+srv://Pomy:Pomy123@callcenter.f7ows.mongodb.net/?retryWrites=true&w=majority',  # Cluster MongoDB
+#             'tls':True,
+#         }
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'FreshTakesDelicacies',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb+srv://Pomy:Pomy123@callcenter.f7ows.mongodb.net/?retryWrites=true&w=majority',  # Cluster MongoDB
-            'tls':True,
+            'host': 'mongodb://localhost:27017/'
         }
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -119,6 +129,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+# Disable Append Slashes
+APPEND_SLASH = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
@@ -130,8 +142,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Where collectstatic will place static files in production
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

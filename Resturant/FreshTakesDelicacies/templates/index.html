@@ -31,21 +31,6 @@
   {% comment %} static styles for index.html {% endcomment %}
   <link rel="stylesheet" href="{% static 'assets/css/index.css' %}">
 
-  {% comment %} static styles for  menu.html {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'assets/css/menu.css' %}"> {% endcomment %}
-
-  {% comment %} static styles for  analytics.html {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'assets/css/analytics.css' %}"> {% endcomment %}
-
-  {% comment %} static styles for  messages.html {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'assets/css/messages.css' %}"> {% endcomment %}
-
-  {% comment %} static styles for  allmenu.html {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'assets/css/allmenu.css' %}"> {% endcomment %}
-
-  {% comment %} static styles for  bookings.html {% endcomment %}
-  {% comment %} <link rel="stylesheet" href="{% static 'assets/css/bookings.css' %}"> {% endcomment %}
-
 </head>
 
 <body>
@@ -70,24 +55,24 @@
             <span class="material-symbols-sharp">grid_view </span>
             <h3>Dashbord</h3>
           </a>
-          <a href="/analytics">
+          <a href="/analytics/">
             <span class="material-symbols-sharp">insights </span>
             <h3>Analytics</h3>
           </a>
-          <a href="/messages">
+          <a href="/messages/">
             <span class="material-symbols-sharp">mail_outline </span>
             <h3>Messages</h3>
             <span class="msg_count">14</span>
           </a>
-          <a href="/allmenu">
+          <a href="/allmenu/">
             <span class="material-symbols-sharp">receipt_long </span>
             <h3>All Menus</h3>
           </a>
-          <a href="/bookings">
+          <a href="/bookings/">
             <span class="material-symbols-sharp">bookmarks </span>
             <h3>Bookings</h3>
           </a>
-          <a href="/addmenu">
+          <a href="/addmenu/">
             <span class="material-symbols-sharp">add </span>
             <h3>Add Menu</h3>
           </a>
@@ -170,69 +155,61 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Chicken Stew</td>
-                  <td>Chicken Relishes</td>
-                  <td>E 30.00</td>
-                  <td class="warning">11:00 AM</td>
-                  <td class="primary"><span class="material-symbols-sharp" id="delete" style="color:red">
-                      disabled_by_default
-                    </span> <span class="material-symbols-sharp" id="edit">edit</span></td>
-                </tr>
-                <tr>
-                  <td>Beef Stew</td>
-                  <td>Beef Relishes</td>
-                  <td>E 35.00</td>
-                  <td class="warning">11:30 AM</td>
-                  <td class="primary"><span class="material-symbols-sharp" id="delete" style="color:red">
-                      disabled_by_default
-                    </span> <span class="material-symbols-sharp" id="edit">edit</span></td>
-                </tr>
-                <tr>
-                  <td>Umbhidvo Wetintsanga</td>
-                  <td>Green Relishes</td>
-                  <td>E 15.50</td>
-                  <td class="warning">12:30 PM</td>
-                  <td class="primary">
-                    <span class="material-symbols-sharp" id="delete" style="color:red">
-                      disabled_by_default
-                    </span> 
-                    <span class="material-symbols-sharp" id="edit" onclick="showModal()">edit</span></td>
-                </tr>
-                <tr>
-                  <td>Ham Bugger</td>
-                  <td>Fast Foods</td>
-                  <td>E 20.00</td>
-                  <td class="warning">9:00 AM</td>
-                  <td class="primary"><span class="material-symbols-sharp" id="delete" style="color:red">
-                      disabled_by_default
-                    </span> <span class="material-symbols-sharp" id="edit">edit</span></td>
-                </tr>
+                {% for meal in today_menus %}
+                  <tr>
+                    <td>{{ meal.dish }}</td>
+                    <td>{{ meal.category }}</td>
+                    <td>E {{ meal.price }}</td>
+                    <td class="warning">{{ meal.time }}</td>
+                    <td style="display: none;">{{ meal.id }}</td>
+                    <td class="primary">
+                      <span class="material-symbols-sharp" id="delete" data-id="{{ meal.id }}" style="color:red">
+                        disabled_by_default
+                      </span>
+                      <span class="material-symbols-sharp" 
+                        data-id="{{ meal.id }}" 
+                        data-name="{{ meal.dish }}" 
+                        data-price="{{ meal.price }}"
+                        data-time = "{{ meal.time }}"
+                        data-category="{{ meal.category }}"
+                        data-description="{{ meal.description}}"
+                         id="edit">edit
+                      </span>
+                    </td>
+
+                  </tr>     
+                {% endfor %}
               </tbody>
             </table>
             <a href="#">Show All</a>
           </div>
+
+          <div id="toast" class="toast"></div>
 
         {% comment %} modal dialog {% endcomment %}
           <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Make Changes And Save</h2>
-                <div class="content">
-                  <div>
-                    <input type="text" value="" placeholder="Dish Name" />
-                    <input type="text" value="" placeholder="Dish Category" />
+                <form action='' method='POST'>
+                  {% csrf_token %}
+                  <div class="content">
+                    <input type="text" value="" id="menuId" style="display:none;" />
+                    <div>
+                      <input type="text" value="" id="menuName" placeholder="Dish Name" />
+                      <input type="text" value="" id="menuCategory" placeholder="Dish Category" />
+                    </div>
+                    <div>
+                      <input type="number" value="" id="menuPrice" placeholder="Price" />
+                      <input type="time" value="" id="menuTime" placeholder="Time To Be Served" />
+                    </div>
+                    <textarea type="text" value="" id="menuDesc" placeholder="Dish Description"></textarea>
+                    <div class="btns"> 
+                      <button type="submit">Save</button>
+                      <button type="reset" class="cancel">Cancel</button>
+                    </div>
                   </div>
-                  <div>
-                    <input type="number" value="" placeholder="Price" />
-                    <input type="time" value="" placeholder="Time To Be Served" />
-                  </div>
-                  <textarea type="text" value="" placeholder="Dish Description"></textarea>
-                  <div class="btns"> 
-                    <button type="submit">Save</button>
-                    <button type="reset" class="cancel">Cancel</button>
-                  </div>
-                </div>
+                </form>
             </div>
           </div>
 

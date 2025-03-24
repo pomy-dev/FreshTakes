@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Get the modal
     var modal = document.getElementById("myModal");
 
-    var triggerBtns = document.querySelectorAll("#edit");
+    var updateBtns = document.querySelectorAll("#edit");
 
     var deleteBtns = document.querySelectorAll("#delete");
 
@@ -48,22 +48,138 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector(".modal .cancel").addEventListener("click", closeModal);
 
     // Open modal when any trigger button is clicked
-    triggerBtns.forEach((btn) => {
+    updateBtns.forEach(btn => {
+
+        // Get data attributes from the clicked button
+        const menuId = btn.getAttribute("data-id");
+        const menuName = btn.getAttribute("data-name");
+        const menuPrice = btn.getAttribute("data-price");
+        const menuTime = btn.getAttribute("data-time");
+        const menuCategory = btn.getAttribute("data-category");
+        const menuDesc = btn.getAttribute("data-description");
+
         btn.addEventListener("click", function () {
-            console.log('one')
+
+            // Set modal fields with the row data
+            document.getElementById("menuId").value = menuId;
+            document.getElementById("menuName").value = menuName;
+            document.getElementById("menuPrice").value = menuPrice;
+            document.getElementById("menuTime").value = menuTime;
+            document.getElementById("menuCategory").value = menuCategory;
+            document.getElementById("menuDesc").value = menuDesc;
+
+            console.log(`===fetched meal===:${menuId}======`);
+
             modal.style.display = "block";
         });
     });
 
+    function getCSRFToken() {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith('csrftoken=')) {
+                    cookieValue = cookie.substring('csrftoken='.length, cookie.length);
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    // save changes made from and on the modal
+    async function saveMenuChanges() {
+        const formData = new FormData();
+        const csrfToken = getCSRFToken();
+
+        let id = document.getElementById("menuId").value;
+        let dish = document.getElementById("menuName").value;
+        let price = document.getElementById("menuPrice").value;
+        let time = document.getElementById("menuTime").value;
+        let category = document.getElementById("menuCategory").value;
+        let desc = document.getElementById("menuDesc").value;
+
+        formData.append("id", id)
+        formData.append("dish", dish)
+        formData.append("price", price)
+        formData.append("time", time)
+        formData.append("category", category)
+        formData.append("description", desc)
+
+        try {
+            fetch('/updatemenu/', {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken
+                },
+                body: formData
+            }).then(response => response.json()).then(data => {
+                showToast(data.message)
+                setTimeout(() => location.reload(), 2000);
+            }).catch(error => {
+                console.log(`===response not good[===${error}===]===`);
+                showToast(error)
+                setTimeout(() => location.reload(), 2000);
+                // alert(error)
+            })
+        } catch (error) {
+            alert(`Failed to update meal: ${error}`);
+        }
+
+    }
+
+    document.querySelector("#myModal form button[type='submit']").addEventListener('click', function () {
+        saveMenuChanges();
+    });
+
     deleteBtns.forEach((btn) => {
-        btn.addEventListener("click", function () {
-            confirm("Are you sure you want Delete Item");
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            if (!confirm("Are you sure you want to delete this meal?")) {
+                return;
+            }
+
+            let mealId = btn.getAttribute('data-id');
+
+            const formData = new FormData();
+            formData.append("id", mealId);
+            let csrfToken = getCSRFToken();
+
+            fetch('/deletemenu/', {
+                method: "POST",
+                headers: {
+                    "X-CSRFToken": csrfToken,
+                },
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+                    showToast(data.message);
+                    setTimeout(() => location.reload(), 2000);
+                })
+                .catch(error => {
+                    showToast(error);
+                    setTimeout(() => location.reload(), 2000);
+                });
         });
     });
 
     // Close the modal when the close button is clicked
     function closeModal() {
         modal.style.display = "none";
+    }
+
+    // Show Toast
+    function showToast(message) {
+        let toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        setTimeout(() => {
+            toast.classList.remove("show");
+        }, 3000); // Toast disappears after 3 seconds
     }
 
     // Close the modal when clicking outside the modal content

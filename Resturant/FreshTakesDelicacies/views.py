@@ -2,52 +2,46 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
-import json
-from .models import MenuItem
+from .utils.save_to_db import addmeal
+from .utils.get_all_menu import getAllMenu
+from .utils.update_menu import update_item
+from .utils.delete_menu import deleteMenu
 
+@ensure_csrf_cookie
 def dashboard(request):
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render())
+# retrieve all today's menu from database
+    today_meals = getAllMenu()
+    return render(request,'index.html',{'today_menus':today_meals} )
 
 @ensure_csrf_cookie
 def addmenu(request):
+# retrieve all today's menu from database
+    today_meals = getAllMenu()
     if request.method == "POST":
+
         try:
-            # Extract form data from request
+            print("=======Sending Data========")
+            print(request.POST) # Debugging output 
+            print(request.FILES)
 
-            print("Received Data:", request.POST)
-            print("===============Selected Category Before==============");
-            print(category);
-
-            category= request.POST.get("faculty")
+            category = request.POST.get("faculty")
             dish = request.POST.get("dish")
-            price = float(request.POST.get("price",0))
+            price = float(request.POST.get("price"))
             time = request.POST.get("time")
             description = request.POST.get("story")
+            image = request.FILES.get("photo")
 
+            # Save image to /media/meal_images/
+            image_data = image.read()
             # Save data to MongoDB
-            menu_item = MenuItem(
-                category=category,
-                dish=dish,
-                price=price,
-                serveTime=time,
-                description=description
-            )
-            menu_item.save()
-
-            print("===============Selected Category==============");
-            print(category);
-
-            return JsonResponse({"message": "Menu uploaded successfully!"}, status=200)
-
+            addmeal(category,dish,price,time,description,image_data);
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=400)
 
-    return render(request, 'menu.html') 
+    return render(request, 'menu.html',{'today_menus':today_meals}) 
 
 def analytics(request):
-    template = loader.get_template('analytics.html')
-    return HttpResponse(template.render())
+    return render(request, 'analytics.html')
 
 def messages(request):
     template = loader.get_template('messages.html')
@@ -60,3 +54,33 @@ def allmenu(request):
 def bookings(request):
     template = loader.get_template('booking.html')
     return HttpResponse(template.render())
+
+def updatemenu(request):
+    if request.method == "POST":
+        print(request.POST);
+
+        meal_id = request.POST.get("id")
+        meal_name = request.POST.get("dish")
+        meal_category = request.POST.get("category")
+        meal_time = request.POST.get("time")
+        meal_price = request.POST.get("price")
+        meal_descr = request.POST.get("description")
+
+        print(f'{meal_id, meal_name, meal_price, meal_time, meal_category, meal_descr}');
+
+        try:
+            update_item(meal_id,{'dish':meal_name,'category':meal_category,'time':meal_time,'price':meal_price,'description':meal_descr})
+            return JsonResponse({'message':'Updated Successful'})
+        except Exception as e:
+            return JsonResponse({'error':f'{e}'})
+
+def deletemenu(request):
+    if request.method == "POST":
+        id = request.POST.get('id')
+        try:
+            deleteMenu(id);
+            return JsonResponse({'message':'Meal now deleted'})
+        except Exception as e:
+            print(f'Error Occured: {e}')
+            return JsonResponse({'error':f'{e}'})
+        

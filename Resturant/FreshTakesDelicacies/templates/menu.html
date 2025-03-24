@@ -211,5 +211,22 @@ F.T.D Menu
 {% block rightContent %}
 <div class="sales-analytics">
     <h2>Preview Menu</h2>
+    {% for meal in today_menus %}
+        <div class="item onlion">
+            <img src="{{ meal.image }}" alt="today">
+            <div class="right_text">
+                <div class="info">
+                    <h3>{{ meal.dish }}</h3>
+                    <small class="text-muted">{{ meal.description }}</small>
+                </div>
+                <h5 class="primary">E{{meal.price}}</h5>
+                <h3>{{ meal.category }} Category</h3>
+            </div>
+        </div>
+    {% endfor %}
+    {% comment %} <div class='show-more'>
+        <a href="#">Show All</a>
+    </div> {% endcomment %}
+    
 </div>
 {% endblock %}
