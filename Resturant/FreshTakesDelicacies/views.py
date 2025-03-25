@@ -3,7 +3,6 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .utils.save_to_db import addmeal
-from .models import MenuItem
 from .utils.get_all_menu import getAllMenu
 from .utils.update_menu import update_item
 from .utils.delete_menu import deleteMenu
@@ -60,7 +59,6 @@ def updatemeal(request):
     if request.method == "POST":
         data = request.POST
         print(data)
-        dish = MenuItem
 
         csrfToken = data.get('csrfToken')
         meal_id = data.get("id")
