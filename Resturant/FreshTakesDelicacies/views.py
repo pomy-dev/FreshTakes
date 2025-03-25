@@ -63,6 +63,7 @@ def updatemenu(request):
         dish = MenuItem
 
         csrfToken = data.get('csrfToken')
+        print(csrfToken)
         meal_id = data.get("id")
         meal_name = data.get("dish")
         meal_category = data.get("category")
@@ -74,6 +75,7 @@ def updatemenu(request):
             update_item(meal_id,{'dish':meal_name,'category':meal_category,'time':meal_time,'price':meal_price,'description':meal_descr})
             return JsonResponse({'message':'Updated Successful'})
         except Exception as e:
+            print(e)
             return JsonResponse({'error':f'{e}'})
 
 def deletemenu(request):

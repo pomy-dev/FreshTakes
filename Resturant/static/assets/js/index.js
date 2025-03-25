@@ -88,8 +88,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return cookieValue;
     }
-
-
     const csrfToken = getCSRFToken();
 
     // save changes made from and on the modal
@@ -121,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
             showToast(data.message)
             setTimeout(() => location.reload(), 2000);
         }).catch(error => {
+            alert(error)
             showToast(error)
             setTimeout(() => location.reload(), 2000);
         })
