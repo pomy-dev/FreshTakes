@@ -15,7 +15,16 @@ class MenuItem(models.Model):
 
   def __str__(self):
     return f'{self.name,self.category,self.price,self.time,self.description}'
-    
+
+class Activities(models.Model):
+  _id = models.ObjectIdField(primary_key=True, default=ObjectId) 
+  detail = models.CharField(max_length=5000)
+  pagename = models.CharField(max_length=100)
+  timestamp = models.CharField(max_length=100)
+
+  class Meta:
+    db_table = "activities"
+
 class Bookings(models.Model):
   id = models.ObjectIdField(primary_key=True, default=ObjectId) 
   date = models.CharField(max_length=100)

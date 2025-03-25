@@ -40,6 +40,7 @@ def addmenu(request):
     return render(request, 'menu.html',{'today_menus':today_meals}) 
 
 def analytics(request):
+    
     return render(request, 'analytics.html')
 
 def messages(request):

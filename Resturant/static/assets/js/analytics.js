@@ -15,7 +15,7 @@ const websiteVisitsCtx = document.getElementById('websiteVisitsChart').getContex
 new Chart(websiteVisitsCtx, {
   type: 'line',
   data: {
-    labels: ['Morning', 'Lunch Time', 'Evening'],
+    labels: ['06:59 am - 10:59 am', '11:01 am - 14:59 pm', '15:01 pm - 00:00 pm'],
     datasets: [{
       label: 'Website Visits',
       data: [200, 450, 300],
