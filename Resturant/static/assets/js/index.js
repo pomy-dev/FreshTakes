@@ -58,7 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const menuCategory = btn.getAttribute("data-category");
         const menuDesc = btn.getAttribute("data-description");
 
-        btn.addEventListener("click", function () {
+        btn.addEventListener("click", function (e) {
+            e.preventDefault()
 
             // Set modal fields with the row data
             document.getElementById("menuId").value = menuId;
@@ -88,30 +89,21 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         return cookieValue;
     }
-
-
     const csrfToken = getCSRFToken();
 
     // save changes made from and on the modal
     async function saveMenuChanges() {
         const formData = new FormData();
 
-        let id = document.getElementById("menuId").value;
-        let dish = document.getElementById("menuName").value;
-        let price = document.getElementById("menuPrice").value;
-        let time = document.getElementById("menuTime").value;
-        let category = document.getElementById("menuCategory").value;
-        let desc = document.getElementById("menuDesc").value;
-
         formData.append("csrfToken", csrfToken)
-        formData.append("id", id)
-        formData.append("dish", dish)
-        formData.append("price", price)
-        formData.append("time", time)
-        formData.append("category", category)
-        formData.append("description", desc)
+        formData.append("id", document.getElementById("menuId").value)
+        formData.append("dish", document.getElementById("menuName").value)
+        formData.append("price", document.getElementById("menuPrice").value)
+        formData.append("time", document.getElementById("menuTime").value)
+        formData.append("category", document.getElementById("menuCategory").value)
+        formData.append("description", document.getElementById("menuDesc").value)
 
-        fetch('/updatemenu/', {
+        fetch('/updatemeal/', {
             method: "POST",
             headers: {
                 "X-CSRFToken": csrfToken
@@ -127,7 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    document.querySelector("#myModal form button[type='submit']").addEventListener('click', function () {
+    document.querySelector("#myModal form button[type='submit']").addEventListener('click', function (e) {
+        e.preventDefault();
         saveMenuChanges();
     });
 

@@ -56,7 +56,7 @@ def bookings(request):
     return HttpResponse(template.render())
 
 @ensure_csrf_cookie
-def updatemenu(request):
+def updatemeal(request):
     if request.method == "POST":
         data = request.POST
         print(data)
