@@ -89,10 +89,12 @@ document.addEventListener("DOMContentLoaded", function () {
         return cookieValue;
     }
 
+
+    const csrfToken = getCSRFToken();
+
     // save changes made from and on the modal
     async function saveMenuChanges() {
         const formData = new FormData();
-        const csrfToken = getCSRFToken();
 
         let id = document.getElementById("menuId").value;
         let dish = document.getElementById("menuName").value;
@@ -101,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let category = document.getElementById("menuCategory").value;
         let desc = document.getElementById("menuDesc").value;
 
+        formData.append("csrfToken", csrfToken)
         formData.append("id", id)
         formData.append("dish", dish)
         formData.append("price", price)
@@ -108,25 +111,19 @@ document.addEventListener("DOMContentLoaded", function () {
         formData.append("category", category)
         formData.append("description", desc)
 
-        try {
-            fetch('/updatemenu/', {
-                method: "POST",
-                headers: {
-                    "X-CSRFToken": csrfToken
-                },
-                body: formData
-            }).then(response => response.json()).then(data => {
-                showToast(data.message)
-                setTimeout(() => location.reload(), 2000);
-            }).catch(error => {
-                console.log(`===response not good[===${error}===]===`);
-                showToast(error)
-                setTimeout(() => location.reload(), 2000);
-                // alert(error)
-            })
-        } catch (error) {
-            alert(`Failed to update meal: ${error}`);
-        }
+        fetch('/updatemenu/', {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken
+            },
+            body: formData
+        }).then(response => response.json()).then(data => {
+            showToast(data.message)
+            setTimeout(() => location.reload(), 2000);
+        }).catch(error => {
+            showToast(error)
+            setTimeout(() => location.reload(), 2000);
+        })
 
     }
 
@@ -146,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const formData = new FormData();
             formData.append("id", mealId);
-            let csrfToken = getCSRFToken();
 
             fetch('/deletemenu/', {
                 method: "POST",

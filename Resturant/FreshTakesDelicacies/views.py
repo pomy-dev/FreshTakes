@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .utils.save_to_db import addmeal
+from .models import MenuItem
 from .utils.get_all_menu import getAllMenu
 from .utils.update_menu import update_item
 from .utils.delete_menu import deleteMenu
 
-@ensure_csrf_cookie
 def dashboard(request):
 # retrieve all today's menu from database
     today_meals = getAllMenu()
@@ -55,18 +55,20 @@ def bookings(request):
     template = loader.get_template('booking.html')
     return HttpResponse(template.render())
 
+@ensure_csrf_cookie
 def updatemenu(request):
     if request.method == "POST":
-        print(request.POST);
+        data = request.POST
+        print(data)
+        dish = MenuItem
 
-        meal_id = request.POST.get("id")
-        meal_name = request.POST.get("dish")
-        meal_category = request.POST.get("category")
-        meal_time = request.POST.get("time")
-        meal_price = request.POST.get("price")
-        meal_descr = request.POST.get("description")
-
-        print(f'{meal_id, meal_name, meal_price, meal_time, meal_category, meal_descr}');
+        csrfToken = data.get('csrfToken')
+        meal_id = data.get("id")
+        meal_name = data.get("dish")
+        meal_category = data.get("category")
+        meal_time = data.get("time")
+        meal_price = data.get("price")
+        meal_descr = data.get("description")
 
         try:
             update_item(meal_id,{'dish':meal_name,'category':meal_category,'time':meal_time,'price':meal_price,'description':meal_descr})
