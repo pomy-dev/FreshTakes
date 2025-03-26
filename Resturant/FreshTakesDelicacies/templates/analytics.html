@@ -11,15 +11,204 @@
   <div class="container-analytics">
       <h2>Fresh Takes Analytics</h2>
       
-      <div class="card">
-          <h3>Most Liked Meal Categories</h3>
-          <canvas id="mealCategoryChart"></canvas>
+      <div class="table-analytics">
+        <h2>Admin Activities</h2>
+        <label for="filter">Filter by Page Name:</label>
+        <input type="text" id="filter" placeholder="Enter page name">
+        <button onclick="fetchActivities()">Apply Filter</button>
+
+        <button onclick="toggleView('tableSection')">Show Table</button>
+        <button onclick="toggleView('chartSection')">Show Bar Chart</button>
+        <button onclick="toggleView('pieChartSection')">Show Pie Chart</button>
+
+        <div class="loader hidden" id="loader">Loading data...</div>
+
+        <!-- Table Section -->
+        <div id="tableSection" class="hidden">
+            <h3>Activity Table</h3>
+            <table id="activityTable" class="display">
+                <thead>
+                    <tr>
+                        <th>Detail</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Page Name</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <!-- Bar Chart Section -->
+        <div id="chartSection" class="hidden">
+            <h3>Activity Distribution</h3>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Pie Chart Section -->
+        <div id="pieChartSection" class="hidden">
+            <h3>Time-Based Activity Distribution</h3>
+            <div class="chart-container">
+                <canvas id="timePieChart"></canvas>
+            </div>
+        </div>
       </div>
-      
-      <div class="card">
-          <h3>Website Visits by Time</h3>
-          <canvas id="websiteVisitsChart"></canvas>
-      </div>
+
+      <script>
+        let chartInstance = null;
+        let pieChartInstance = null;
+        let activitiesData = [];
+
+        async function fetchActivities() {
+            document.getElementById('loader').classList.remove('hidden');
+            try {
+                let response = await fetch('http://localhost:5000/api/activities');
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                let activities = await response.json();
+                document.getElementById('loader').classList.add('hidden');
+                activitiesData = activities;
+                renderTable();
+                renderChart();
+                renderPieChart();
+            } catch (error) {
+                console.error('Error fetching activities:', error);
+                document.getElementById('loader').innerText = 'Failed to load data';
+            }
+        }
+
+        function renderTable() {
+            let filterValue = document.getElementById('filter').value.toLowerCase();
+            let tableBody = $('#activityTable tbody');
+            tableBody.empty();
+
+            let filteredActivities = activitiesData.filter(activity =>
+                !filterValue || activity.pageName.toLowerCase().includes(filterValue)
+            );
+
+            filteredActivities.forEach(activity => {
+                let dateObj = new Date(activity.timestamp);
+                if (isNaN(dateObj)) return;
+
+                let date = dateObj.toISOString().split('T')[0]; // YYYY-MM-DD
+                let time = dateObj.toTimeString().split(' ')[0].slice(0, 5); // HH:MM
+
+                let row = `
+                  <tr>
+                    <td>${activity.detail}</td>
+                    <td>${date}</td>
+                    <td>${time}</td>
+                    <td>${activity.pageName}</td>
+                  </tr>
+                `;
+                tableBody.append(row);
+            });
+
+            if (!$.fn.DataTable.isDataTable('#activityTable')) {
+                $('#activityTable').DataTable();
+            }
+        }
+
+        function renderChart() {
+            let ctx = document.getElementById('activityChart').getContext('2d');
+            let activityGroups = {};
+
+            activitiesData.forEach(activity => {
+                let detail = activity.detail;
+                activityGroups[detail] = (activityGroups[detail] || 0) + 1;
+            });
+
+            let labels = Object.keys(activityGroups);
+            let rawData = Object.values(activityGroups);
+            let total = rawData.reduce((sum, val) => sum + val, 0);
+            let percentages = rawData.map(count => ((count / total) * 100).toFixed(1));
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Activity (%)',
+                        data: percentages,
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + '%';
+                                }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (tooltipItem) {
+                                    return `${rawData[tooltipItem.dataIndex]} occurrences (${tooltipItem.raw}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPieChart() {
+            let ctx = document.getElementById('timePieChart').getContext('2d');
+            let timeGroups = { "00:00-04:00": 0, "04:00-08:00": 0, "08:00-12:00": 0, "12:00-16:00": 0, "16:00-20:00": 0, "20:00-00:00": 0 };
+
+            activitiesData.forEach(activity => {
+                let hour = new Date(activity.timestamp).getHours();
+                let group = Object.keys(timeGroups)[Math.floor(hour / 4)];
+                timeGroups[group]++;
+            });
+
+            if (pieChartInstance) {
+                pieChartInstance.destroy();
+            }
+
+            pieChartInstance = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(timeGroups),
+                    datasets: [{
+                        data: Object.values(timeGroups),
+                        backgroundColor: ['red', 'blue', 'green', 'purple', 'orange', 'yellow']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+
+        function toggleView(sectionId) {
+          document.getElementById('tableSection').classList.add('hidden');
+          document.getElementById('chartSection').classList.add('hidden');
+          document.getElementById('pieChartSection').classList.add('hidden');
+          document.getElementById(sectionId).classList.remove('hidden');
+        }
+
+        fetchActivities();
+      </script>
+
   </div>
 {% endblock %}
 
