@@ -204,7 +204,7 @@ body {
   width: 100%;
 }
 
-.dashboard aside .sidebar a.active {
+.dashboard aside .sidebar a:hover {
   background-color: var(--clr-light);
   color: var(--clr-primary);
   margin-left: 0;

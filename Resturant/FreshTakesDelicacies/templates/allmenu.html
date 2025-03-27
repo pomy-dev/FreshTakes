@@ -30,189 +30,86 @@ F.T.D All-Menu
     
   </div>
   
+  
   {% comment %} Break fast meals {% endcomment %}
   <div class="menu-section" id='Breakfast'>
     <span class="menu-header">
-      Break Fast
+      Lunch Menu
     </span>
     <ul>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/breakfast.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
+      {% for dish in dishes %}
+        {% if dish.category == "Lunch" %}
+          <li>
+            <div class="menu-outline">
+              <div class="icon">
+                <img src="{{ dish.image }}" alt='.png' />
+              </div>
+              <div class="meal-dis">
+                <p>{{ dish.dish }}</p>
+                <small>{{ dish.category }}</small>
+                &nbsp;&nbsp;&nbsp;
+                <span>{{ dish.description }}</span>
+                <p>{{ dish.price }}</p>
+              </div>
+              <div class="actions">
+                <button type="reset">
+                  <span class="material-symbols-sharp" Style="color:#111e88;">
+                    undo
+                  </span>
+                  Re-Publish
+                </button>
+                <button type="submit">
+                  <span class="material-symbols-sharp" Style="color:#FF0000;">
+                    delete
+                  </span>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </div>
 
   {% comment %} Lunch Meals {% endcomment %}
   <div class="menu-section" id="Lunch">
     <span class="menu-header">
-      Lunch Menu
+      Breakfast Menu
     </span>
     <ul>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/menu.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
+      {% for dish in dishes %}
+        {% if dish.category == "Breakfast" %}
+          <li>
+            <div class="menu-outline">
+              <div class="icon">
+                <img src="{{ dish.image }}" alt='.png' />
+              </div>
+              <div class="meal-dis">
+                <p>{{ dish.dish }}</p>
+                <small>{{ dish.category }}</small>
+                &nbsp;&nbsp;&nbsp;
+                <span>{{ dish.description }}</span>
+                <p>{{ dish.price }}</p>
+              </div>
+              <div class="actions">
+                <button type="reset">
+                  <span class="material-symbols-sharp" Style="color:#111e88;">
+                    undo
+                  </span>
+                  Re-Publish
+                </button>
+                <button type="submit">
+                  <span class="material-symbols-sharp" Style="color:#FF0000;">
+                    delete
+                  </span>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </div>
 
@@ -222,90 +119,38 @@ F.T.D All-Menu
       Beverages & Drinks
     </span>
     <ul>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
+      {% for dish in dishes %}
+        {% if dish.category == "Beverages" %}
+          <li>
+            <div class="menu-outline">
+              <div class="icon">
+                <img src="{{ dish.image }}" alt='.png' />
+              </div>
+              <div class="meal-dis">
+                <p>{{ dish.dish }}</p>
+                <small>{{ dish.category }}</small>
+                &nbsp;&nbsp;&nbsp;
+                <span>{{ dish.description }}</span>
+                <p>{{ dish.price }}</p>
+              </div>
+              <div class="actions">
+                <button type="reset">
+                  <span class="material-symbols-sharp" Style="color:#111e88;">
+                    undo
+                  </span>
+                  Re-Publish
+                </button>
+                <button type="submit">
+                  <span class="material-symbols-sharp" Style="color:#FF0000;">
+                    delete
+                  </span>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </div>
 
@@ -315,90 +160,79 @@ F.T.D All-Menu
       Standalone Meals
     </span>
     <ul>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="menu-outline">
-          <div class="icon">
-            <img src="{% static "assets/img/dessets.png" %}" alt='.png' />
-          </div>
-          <div class="meal-dis">
-            <p>Meal Stew</p>
-            <small>Meal Category</small>
-            &nbsp;&nbsp;&nbsp;
-            <span>Home Style Made</span>
-            <p>E20.00</p>
-          </div>
-          <div class="actions">
-            <button type="reset">
-              <span class="material-symbols-sharp" Style="color:#111e88;">
-                undo
-              </span>
-              Re-Publish
-            </button>
-            <button type="submit">
-              <span class="material-symbols-sharp" Style="color:#FF0000;">
-                delete
-              </span>
-              Delete
-            </button>
-          </div>
-        </div>
-      </li>
+      {% for dish in dishes %}
+        {% if dish.category == "Standalone" %}
+          <li>
+            <div class="menu-outline">
+              <div class="icon">
+                <img src="{{ dish.image }}" alt='.png' />
+              </div>
+              <div class="meal-dis">
+                <p>{{ dish.dish }}</p>
+                <small>{{ dish.category }}</small>
+                &nbsp;&nbsp;&nbsp;
+                <span>{{ dish.description }}</span>
+                <p>{{ dish.price }}</p>
+              </div>
+              <div class="actions">
+                <button type="reset">
+                  <span class="material-symbols-sharp" Style="color:#111e88;">
+                    undo
+                  </span>
+                  Re-Publish
+                </button>
+                <button type="submit">
+                  <span class="material-symbols-sharp" Style="color:#FF0000;">
+                    delete
+                  </span>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% comment %} Standalone {% endcomment %}
+  <div class="menu-section" id="Standalone">
+    <span class="menu-header">
+      Desserts
+    </span>
+    <ul>
+      {% for dish in dishes %}
+        {% if dish.category == "Desset" %}
+          <li>
+            <div class="menu-outline">
+              <div class="icon">
+                <img src="{{ dish.image }}" alt='.png' />
+              </div>
+              <div class="meal-dis">
+                <p>{{ dish.dish }}</p>
+                <small>{{ dish.category }}</small>
+                &nbsp;&nbsp;&nbsp;
+                <span>{{ dish.description }}</span>
+                <p>{{ dish.price }}</p>
+              </div>
+              <div class="actions">
+                <button type="reset">
+                  <span class="material-symbols-sharp" Style="color:#111e88;">
+                    undo
+                  </span>
+                  Re-Publish
+                </button>
+                <button type="submit">
+                  <span class="material-symbols-sharp" Style="color:#FF0000;">
+                    delete
+                  </span>
+                  Delete
+                </button>
+              </div>
+            </div>
+          </li>
+        {% endif %}
+      {% endfor %}
     </ul>
   </div>
 

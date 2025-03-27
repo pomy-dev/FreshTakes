@@ -1,11 +1,22 @@
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from .utils.save_to_db import addmeal
 from .utils.get_all_menu import getAllMenu
 from .utils.update_menu import update_item
 from .utils.delete_menu import deleteMenu
+
+@ensure_csrf_cookie
+def login(request):
+    if request.method == "POST":
+        credentials = request.POST
+        print(credentials)
+        log_email = "try@admin.com"
+        password = "test"
+        if credentials.get('email') == log_email and credentials.get('password') == password:
+            return redirect('dashboard')
+    return render(request,'login.html')
 
 def dashboard(request):
 # retrieve all today's menu from database
@@ -47,8 +58,8 @@ def messages(request):
     return HttpResponse(template.render())
 
 def allmenu(request):
-    template = loader.get_template('allmenu.html')
-    return HttpResponse(template.render())
+    meals = getAllMenu()
+    return render(request,'allmenu.html',{'dishes':meals})
 
 def bookings(request):
     template = loader.get_template('booking.html')
