@@ -85,6 +85,25 @@ def updatemeal(request):
         except Exception as e:
             return JsonResponse({'error':f'{e}'})
 
+def republishmeal(request):
+    if request.method == "POST":
+        data = request.POST
+        print(data)
+
+        # csrfToken = data.get('csrfToken')
+        meal_id = data.get("id")
+        meal_name = data.get("dish")
+        meal_category = data.get("category")
+        meal_time = data.get("time")
+        meal_price = data.get("price")
+        meal_descr = data.get("description")
+
+        try:
+            update_item(meal_id,{'dish':meal_name,'category':meal_category,'time':meal_time,'price':meal_price,'description':meal_descr})
+            return JsonResponse({'message':'Updated Successful'})
+        except Exception as e:
+            return JsonResponse({'error':f'{e}'})
+
 def deletemenu(request):
     if request.method == "POST":
         id = request.POST.get('id')
