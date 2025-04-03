@@ -611,9 +611,7 @@ Right Side
 
 }
 
-/* **********8
-MEDIA QUERY
-****************/
+/* **********8 MEDIA QUERY****************/
 
 @media screen and (max-width:1200px) {
   .dashboard .container {
@@ -638,11 +636,29 @@ MEDIA QUERY
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
+
+  .dashboard main .modal {
+    width: 100%;
+    height: min-content;
+  }
+
+  .dashboard main .modal .modal-content {
+    width: 95%;
+    margin: 50% auto;
+    padding: 10px;
+  }
+
+  .dashboard main .modal h2 {
+    font-weight: 700;
+    font-size: large;
+  }
+
+  .dashboard main .modal .modal-content .content {
+    flex-direction: column;
+  }
 }
 
-/* ****************
-MEDIA QUERY PHONE
-************************/
+/* **************** MEDIA QUERY PHONE ************************/
 
 @media screen and (max-width:768px) {
   .dashboard .container {
@@ -662,6 +678,33 @@ MEDIA QUERY PHONE
     animation: menuLeft .3s ease forwards;
   }
 
+  .dashboard main .modal .modal-content {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .dashboard main .modal .modal-content .content {
+    flex-direction: column;
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+
+  .dashboard main .modal .modal-content .content div {
+    margin: 0.5rem;
+    flex-direction: column;
+  }
+
+  .dashboard main .modal .modal-content .content div.btns {
+    margin: 0.5rem;
+    flex-direction: row;
+  }
+
+  .dashboard main .modal .modal-content .content textarea {
+    width: 22rem;
+    height: min-content;
+    margin-left: -0.5rem;
+    margin-right: 1.5rem;
+  }
 
   @keyframes menuLeft {
     to {
@@ -763,7 +806,6 @@ MEDIA QUERY PHONE
     padding: 0 40px;
     margin-bottom: 40px;
   }
-
 
 }
 

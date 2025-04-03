@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block title %}
-F.T.D All-Menu
+  F.T.D All-Menu
 {% endblock %}
 
 {% block midContent %}
-<link rel="stylesheet" href="{% static 'assets/css/allmenu.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/allmenu.css' %}">
 
   <div class="menu-filters">
     <span>
@@ -26,10 +26,11 @@ F.T.D All-Menu
         Standalone Meals
       </option>
     </select>
-
-    
   </div>
-  
+
+  <span class="facata">
+    Push
+  </span>
   
   {% comment %} Break fast meals {% endcomment %}
   <div class="menu-section" id='Breakfast'>
@@ -52,7 +53,7 @@ F.T.D All-Menu
                 <p>{{ dish.price }}</p>
               </div>
               <div class="actions">
-                <button type="delete">
+                <button type="submit" id="delete-Btn" data-id="{{ dish.id }}">
                   <span class="material-symbols-sharp" Style="color:#FF0000;">
                     delete
                   </span>
@@ -87,7 +88,7 @@ F.T.D All-Menu
                 <p>{{ dish.price }}</p>
               </div>
               <div class="actions">
-                <button type="delete">
+                <button type="submit" data-id="{{ dish.id }}">
                   <span class="material-symbols-sharp" Style="color:#FF0000;">
                     delete
                   </span>
@@ -122,7 +123,7 @@ F.T.D All-Menu
                 <p>{{ dish.price }}</p>
               </div>
               <div class="actions">
-                <button type="delete">
+                <button type="submitt" data-id="{{ dish.id }}">
                   <span class="material-symbols-sharp" Style="color:#FF0000;">
                     delete
                   </span>
@@ -156,8 +157,8 @@ F.T.D All-Menu
                 <span>{{ dish.description }}</span>
                 <p>{{ dish.price }}</p>
               </div>
-              <div class="actions">
-                <button type="delete">
+              <div class="actions" data-id="{{ dish.id }}">
+                <button type="submitt">
                   <span class="material-symbols-sharp" Style="color:#FF0000;">
                     delete
                   </span>
@@ -192,7 +193,7 @@ F.T.D All-Menu
                 <p>{{ dish.price }}</p>
               </div>
               <div class="actions">
-                <button type="delete">
+                <button type="submitt" data-id="{{ dish.id }}">
                   <span class="material-symbols-sharp" Style="color:#FF0000;">
                     delete
                   </span>
