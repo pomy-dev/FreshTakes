@@ -221,13 +221,9 @@
         {% endblock %}
 
       </main>
-      <!------------------
-         end main
-        ------------------->
+      <!------------------ end main ------------------->
 
-      <!----------------
-        start right main 
-      ---------------------->
+      <!---------------- start right main ---------------------->
       <div class="right">
 
         <div class="top">
@@ -262,11 +258,14 @@
               </div>
               <div class="right_text">
                 <div class="info">
-                  <h3>Beef Stew</h3>
-                  <small class="text-muted">From Past Monday</small>
+                  <h3>Lunch</h3>
+                  <small class="text-muted">Total views of product</small>
                 </div>
                 <h5 class="danger"># Likes</h5>
-                <h3>38 people</h3>
+                
+                <div id="loader" style="display:none;">Loading...</div>
+
+                <h3 id ="lunch-count"></h3>
               </div>
             </div>
             <div class="item onlion">
@@ -275,11 +274,11 @@
               </div>
               <div class="right_text">
                 <div class="info">
-                  <h3>Cabbage Boiled</h3>
-                  <small class="text-muted">From Past Tuesday</small>
+                  <h3>Breakfast</h3>
+                  <small class="text-muted">Total views of product</small>
                 </div>
                 <h5 class="danger"># Likes</h5>
-                <h3>65 people</h3>
+                <h3 id="breakfast-count"></h3>
               </div>
             </div>
             <div class="item onlion">
@@ -288,11 +287,11 @@
               </div>
               <div class="right_text">
                 <div class="info">
-                  <h3>Gilled Wors</h3>
-                  <small class="text-muted">From Past Wed...</small>
+                  <h3>Beverages</h3>
+                  <small class="text-muted">Total views of product</small>
                 </div>
                 <h5 class="danger"># Likes</h5>
-                <h3>56 people</h3>
+                <h3 id="beverages-count"></h3>
               </div>
             </div>
             <div class="item onlion">
@@ -301,11 +300,11 @@
               </div>
               <div class="right_text">
                 <div class="info">
-                  <h3>Fried Eggs</h3>
-                  <small class="text-muted">From Past Thursday</small>
+                  <h3>Stand-alone</h3>
+                  <small class="text-muted">Total views of product</small>
                 </div>
                 <h5 class="danger"># Likes</h5>
-                <h3>28 people</h3>
+                <h3 id="stand"></h3>
               </div>
             </div>
             <div class="item onlion">
@@ -314,24 +313,11 @@
               </div>
               <div class="right_text">
                 <div class="info">
-                  <h3>Boiled Beef</h3>
-                  <small class="text-muted">From Past Friday</small>
+                  <h3>Desserts</h3>
+                  <small class="text-muted">Total views of product</small>
                 </div>
                 <h5 class="danger"># Likes</h5>
-                <h3>70 people</h3>
-              </div>
-            </div>
-            <div class="item onlion">
-              <div class="icon">
-                <span class="material-symbols-sharp">diversity_1</span>
-              </div>
-              <div class="right_text">
-                <div class="info">
-                  <h3>Gilled Chicken</h3>
-                  <small class="text-muted">From Past Saturday</small>
-                </div>
-                <h5 class="danger"># Likes</h5>
-                <h3>101 people</h3>
+                <h3 id="desserts-count"></h3>
               </div>
             </div>
           </div>
@@ -347,6 +333,7 @@
   <script src="{% static 'assets/js/messages.js' %}"></script>
   <script src="{% static 'assets/js/allmenu.js' %}"></script>
   <script src="{% static 'assets/js/bookings.js' %}"></script>
+  <script src="{% static 'assets/js/number.js' %}"></script>
 
 </body>
 
