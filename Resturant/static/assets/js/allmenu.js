@@ -1,8 +1,8 @@
+const deleteBtns = document.querySelectorAll(".menu-outline .actions button[type='submit']");
+
 document.getElementById('selectedMenu').addEventListener('change', function () {
   const selectedCategory = this.value;
   const categories = document.querySelectorAll('.menu-section');
-  const deleteBtns = document.querySelectorAll("ul li .menu-outline .actions button[type='submit']");
-  const updateBtn = document.querySelector(".facata");
 
   categories.forEach(section => {
     // Hide all sections first
@@ -13,41 +13,64 @@ document.getElementById('selectedMenu').addEventListener('change', function () {
       section.style.display = 'block';
     }
   });
+});
 
-  updateBtn.addEventListener("click", function (e) {
-    // e.preventDefault();
-    console.log(`Clicked`)
-  });
+function getCSRFToken() {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.startsWith('csrftoken=')) {
+        cookieValue = cookie.substring('csrftoken='.length, cookie.length);
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
-  deleteBtns.forEach((btn) => {
-    btn.addEventListener("click", function (e) {
-      e.preventDefault();
-      console.log('Clicked');
+const csrfToken = getCSRFToken();
 
-      // if (!confirm("Are you sure you want to delete this meal?")) {
-      //   return;
-      // }
+deleteBtns.forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    e.preventDefault();
+    console.log('Clicked');
 
-      // let mealId = btn.getAttribute('data-id');
+    if (!confirm("Are you sure you want to delete this meal?")) {
+      return;
+    }
 
-      // const formData = new FormData();
-      // formData.append("id", mealId);
+    let mealId = btn.getAttribute('data-id');
 
-      // fetch('/deletemenu/', {
-      //   method: "POST",
-      //   headers: {
-      //     "X-CSRFToken": csrfToken,
-      //   },
-      //   body: formData
-      // }).then(response => response.json())
-      //   .then(data => {
-      //     showToast(data.message);
-      //     setTimeout(() => location.reload(), 2000);
-      //   })
-      //   .catch(error => {
-      //     showToast(error);
-      //     setTimeout(() => location.reload(), 2000);
-      //   });
-    });
+    const formData = new FormData();
+    formData.append("id", mealId);
+
+    fetch('/deletemenu/', {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": csrfToken,
+      },
+      body: formData
+    }).then(response => response.json())
+      .then(data => {
+        showToast(data.message);
+        setTimeout(() => location.reload(), 2000);
+      })
+      .catch(error => {
+        showToast(error);
+        // setTimeout(() => location.reload(), 2000);
+      });
   });
 });
+
+// Show Toast
+function showToast(message) {
+  let toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 3000); // Toast disappears after 3 seconds
+}

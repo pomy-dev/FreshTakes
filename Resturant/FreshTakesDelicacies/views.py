@@ -87,6 +87,7 @@ def updatemeal(request):
 
 def deletemenu(request):
     if request.method == "POST":
+        print(request.POST)
         id = request.POST.get('id')
         try:
             deleteMenu(id);
