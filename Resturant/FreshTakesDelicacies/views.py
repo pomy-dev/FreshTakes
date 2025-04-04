@@ -1,3 +1,4 @@
+import traceback
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
@@ -41,11 +42,16 @@ def addmenu(request):
             description = request.POST.get("story")
             image = request.FILES.get("photo")
 
+            if not image:
+                raise ValueError("No image file received")
+
             # Save image to /media/meal_images/
-            image_data = image.read()
+            image_data = image.file.read()
             # Save data to MongoDB
             addmeal(category,dish,price,time,description,image_data);
         except Exception as e:
+            print(f'Error to show here:[{e}]:===')
+            print(traceback.format_exc()) 
             return JsonResponse({"error": str(e)}, status=400)
 
     return render(request, 'menu.html',{'today_menus':today_meals}) 

@@ -76,28 +76,28 @@ WSGI_APPLICATION = 'Resturant.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'djongo',
-#         'NAME': 'FreshTakesDelicacies',
-#         'ENFORCE_SCHEMA': False,
-#         'CLIENT': {
-#             'host': 'mongodb+srv://Pomy:Pomy123@callcenter.f7ows.mongodb.net/?retryWrites=true&w=majority',  # Cluster MongoDB
-#             'tls':True,
-#         }
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'FreshTakesDelicacies',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
-            'host': 'mongodb://localhost:27017/'
+            'host': 'mongodb+srv://Pomy:Pomy123@callcenter.f7ows.mongodb.net/?retryWrites=true&w=majority',  # Cluster MongoDB
+            'tls':True,
         }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'FreshTakesDelicacies',
+#         'ENFORCE_SCHEMA': False,
+#         'CLIENT': {
+#             'host': 'mongodb://localhost:27017/'
+#         }
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
