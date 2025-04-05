@@ -5,15 +5,15 @@ import base64
 def addmeal(category,dish,price,time,description,image):
 
   # Convert image to base64 string
-  image_base64 = base64.b64encode(image).decode("utf-8")
+  binaryImage = base64.b64encode(image).decode("utf-8")
   # Save data to MongoDB
   menu_item = MenuItem(
-      category=category,
-      dish=dish,
-      price=price,
-      time=time,
-      description=description,
-      image=image_base64 
+    category=category,
+    dish=dish,
+    price=price,
+    time=time,
+    description=description,
+    image=binaryImage 
   )
   menu_item.save()
 

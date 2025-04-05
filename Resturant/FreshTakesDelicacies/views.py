@@ -41,12 +41,8 @@ def addmenu(request):
             time = request.POST.get("time")
             description = request.POST.get("story")
             image = request.FILES.get("photo")
-
-            if not image:
-                raise ValueError("No image file received")
-
-            # Save image to /media/meal_images/
-            image_data = image.file.read()
+            
+            image_data = image.read()
             # Save data to MongoDB
             addmeal(category,dish,price,time,description,image_data);
         except Exception as e:
