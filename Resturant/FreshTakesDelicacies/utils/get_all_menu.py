@@ -12,6 +12,11 @@ def getAllMenu():
     for meal in meals:
         # Convert binary image data to Base64
         image_data = meal.image
+
+        # Ensure image_data is in bytes
+        if isinstance(image_data, str):
+          image_data = image_data.encode('utf-8') 
+
         image_base64 = base64.b64encode(image_data).decode('utf-8')
 
         # Append meal data to the list
@@ -24,7 +29,6 @@ def getAllMenu():
             "description": meal.description,
             "image": f"data:image/jpeg;base64,{image_base64}"  # Base64 encoded image
         })
-        # print(f"====meal Id :[{meal._id}]===")
     # Return the list of meals as a JSON response
     return meals_data
 
