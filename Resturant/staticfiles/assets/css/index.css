@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap');
 
-
 /* variables */
-
 
 :root {
   --clr-primary: #7380ec;
@@ -45,8 +43,6 @@
   --clr-dark-variant: #677483;
   --box-shadow: 0 2rem 3rem var(--clr-light)
 }
-
-
 
 * {
   margin: 0;
@@ -110,7 +106,7 @@ body {
   width: 2.8rem;
   height: 2.8rem;
   overflow: hidden;
-  /* border-radius: 50%; */
+  border-radius: 50%;
 }
 
 .dashboard .text-muted {
@@ -141,13 +137,12 @@ body {
   color: var(--clr-warnig);
 }
 
-
 /* aside */
 .dashboard aside {
   height: 100vh;
 }
 
-.dashboard aside .top {
+.dashboard aside .top-head {
   background: var(--clr-white);
   display: flex;
   align-items: center;
@@ -165,7 +160,7 @@ body {
   height: 2rem;
 }
 
-.dashboard aside .top div.close span {
+.dashboard aside .top-head div.close span {
   display: none;
 }
 
@@ -209,7 +204,7 @@ body {
   width: 100%;
 }
 
-.dashboard aside .sidebar a.active {
+.dashboard aside .sidebar a:hover {
   background-color: var(--clr-light);
   color: var(--clr-primary);
   margin-left: 0;
@@ -236,13 +231,6 @@ body {
 .dashboard main {
   margin-top: 1.4rem;
   width: auto;
-}
-
-.dashboard main input {
-  background-color: transparent;
-  border: 0;
-  outline: 0;
-  color: var(--clr-dark);
 }
 
 .dashboard main .date {
@@ -317,7 +305,6 @@ body {
 .dashboard main .insights h3 {
 
   color: var(--clr-dark);
-
 
 }
 
@@ -421,7 +408,15 @@ body {
 .dashboard main .recent_order a {
   text-align: center;
   display: block;
+  align-items: center;
+  justify-content: center;
   margin: 1rem;
+  transition: opacity 0.3s easy-in-out;
+  opacity: 0.5;
+}
+
+.dashboard main .recent_order a:hover {
+  opacity: 1;
 }
 
 
@@ -456,6 +451,7 @@ Right Side
   cursor: pointer;
   border-radius: var(--border-radius-1);
 }
+
 
 .dashboard .right .theme-toggler span {
   font-size: 1.2rem;
@@ -512,13 +508,13 @@ Right Side
   margin-bottom: 1rem;
 }
 
-
-/* .right .recent_updates .update p {} */
-
 /* see analytics */
 
 .dashboard .right .sales-analytics {
   margin-top: 2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .dashboard .right .sales-analytics h2 {
@@ -550,8 +546,21 @@ Right Side
   height: 50px;
   width: 50px;
   line-height: 50px;
+  display: flex;
+  justify-content: center;
   align-items: center;
   background: coral;
+}
+
+.dashboard .right .sales-analytics .item img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--clr-white);
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
 }
 
 .dashboard .right .sales-analytics .item:nth-child(1) .icon {
@@ -602,12 +611,7 @@ Right Side
 
 }
 
-
-
-
-/* **********8
-MEDIA QUERY
-****************/
+/* **********8 MEDIA QUERY****************/
 
 @media screen and (max-width:1200px) {
   .dashboard .container {
@@ -632,11 +636,29 @@ MEDIA QUERY
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
+
+  .dashboard main .modal {
+    width: 100%;
+    height: min-content;
+  }
+
+  .dashboard main .modal .modal-content {
+    width: 95%;
+    margin: 50% auto;
+    padding: 10px;
+  }
+
+  .dashboard main .modal h2 {
+    font-weight: 700;
+    font-size: large;
+  }
+
+  .dashboard main .modal .modal-content .content {
+    flex-direction: column;
+  }
 }
 
-/* ****************
-MEDIA QUERY PHONE
-************************/
+/* **************** MEDIA QUERY PHONE ************************/
 
 @media screen and (max-width:768px) {
   .dashboard .container {
@@ -656,14 +678,39 @@ MEDIA QUERY PHONE
     animation: menuLeft .3s ease forwards;
   }
 
+  .dashboard main .modal .modal-content {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .dashboard main .modal .modal-content .content {
+    flex-direction: column;
+    margin: 1rem;
+    padding: 0.5rem;
+  }
+
+  .dashboard main .modal .modal-content .content div {
+    margin: 0.5rem;
+    flex-direction: column;
+  }
+
+  .dashboard main .modal .modal-content .content div.btns {
+    margin: 0.5rem;
+    flex-direction: row;
+  }
+
+  .dashboard main .modal .modal-content .content textarea {
+    width: 22rem;
+    height: min-content;
+    margin-left: -0.5rem;
+    margin-right: 1.5rem;
+  }
+
   @keyframes menuLeft {
     to {
       left: 0;
     }
   }
-
-
-
 
   .dashboard aside .logo h2 {
     display: inline;
@@ -678,7 +725,7 @@ MEDIA QUERY PHONE
     height: 3.4rem;
   }
 
-  .dashboard aside .top div.close span {
+  .dashboard aside .top-head div.close span {
     display: inline;
     position: absolute;
     right: 0;
@@ -760,5 +807,105 @@ MEDIA QUERY PHONE
     margin-bottom: 40px;
   }
 
+}
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  border-radius: var(--border-radius-3);
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  width: 50%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content .content {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.modal-content .content div {
+  margin: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content .content textarea {
+  width: 30rem;
+  height: 6rem;
+}
+
+.close {
+  float: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: var(--clr-dark-variant);
+  color: var(--white-color);
+  text-align: center;
+  border-radius: 5px;
+  padding: 16px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1000;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.5s, visibility 0.5s;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.modal-content input,
+.modal-content textarea {
+  padding: 10px 10px;
+  width: 15rem;
+  margin: 1px 1rem;
+  background: var(--clr-color-background);
+  border: var(--gray-color) 1px solid;
+  border-radius: var(--border-radius-2);
+}
+
+.modal-content .content .btns button {
+  padding: 12px;
+  border-radius: var(--border-radius-1);
+}
+
+.modal-content .content .btns button:hover {
+  background: var(--clr-white);
+}
+
+.modal-content .content .btns button[type='submit'] {
+  border: #677483 solid 1px;
+  margin: 0.5rem;
+  cursor: pointer;
+}
+
+.modal-content .content .btns button[type='reset'] {
+  border: #677483 dashed 1px;
+  margin: 0.5rem;
+  cursor: pointer;
 }

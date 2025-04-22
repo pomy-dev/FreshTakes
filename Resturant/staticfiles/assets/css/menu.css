@@ -1,0 +1,468 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap');
+
+.site a {
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.site img {
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.site ul {
+    list-style: none;
+}
+
+.site h1,
+.site h2,
+.site h3,
+.site h4 {
+    font-weight: 500;
+    line-height: normal;
+}
+
+.site h1 {
+    font-size: 2em;
+}
+
+.site h2 {
+    font-size: 1.75em;
+}
+
+.site h3 {
+    font-size: 1em;
+}
+
+.site h4 {
+    font-size: 1em;
+}
+
+.site .menu {
+    /* background-color: #0652DD; */
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.site .logo {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 20px 0;
+    display: block;
+    width: fit-content;
+}
+
+.site .top {
+    /* visibility: hidden; */
+    display: none;
+    margin-bottom: 50px;
+    background-color: #b1eda7;
+}
+
+.site .top ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.site .top ul li {
+    display: flex;
+    align-items: center;
+    color: #44bd32;
+    line-height: 1;
+    gap: 7px;
+}
+
+.site .top ul li.active {
+    color: var(--dark-color);
+}
+
+.site .top ul li.active~li {
+    color: var(--gray-color);
+}
+
+.site .top ul li i {
+    font-size: 18px;
+}
+
+.site .top ul li.active i.ri-checkbox-blank-circle-line {
+    color: var(--primary-color);
+}
+
+.site form .form-child {
+    display: none;
+}
+
+.site form .form-child.active {
+    display: block;
+}
+
+.site form h2 {
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 50px;
+}
+
+.site form .field .wrapper {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.site form .faculty {
+    position: relative;
+    padding-left: 60px;
+    font-size: 13px;
+}
+
+.site form .faculty h3 {
+    margin: 15px 0;
+}
+
+.site form .faculty .icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: var(--light-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.site form .faculty .icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(15px);
+}
+
+.site form .faculty:nth-child(1) .icon::before {
+    background-color: #12cbc4;
+}
+
+.site form .faculty:nth-child(2) .icon::before {
+    background-color: #b53471;
+}
+
+.site form .faculty:nth-child(3) .icon::before {
+    background-color: #9980FA;
+}
+
+.site form .faculty:nth-child(4) .icon::before {
+    background-color: #EE5A24;
+}
+
+.site form .faculty:nth-child(5) .icon::before {
+    background-color: #a7e237;
+}
+
+.site form .faculty ul li {
+    position: relative;
+}
+
+.site form .field .wrapper input {
+    width: 0;
+    min-width: 0;
+    height: 0;
+    /* disappear all input as global */
+}
+
+.site form .field .wrapper label {
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.site form .field .wrapper label::before {
+    content: '';
+    position: absolute;
+    display: block;
+    top: calc((26px /2) - 8px);
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background-color: var(--light-color);
+    border: 1px solid var(--gray-color);
+    border-radius: 50%;
+}
+
+.site form .field .wrapper input:checked~label::before {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: rgb(0 0 0 / 35%) 0 3px 6px;
+}
+
+
+/* nav */
+
+.site form nav {
+    text-align: right;
+    padding: 30px 0;
+}
+
+.site form nav a {
+    font-size: 12px;
+    display: inline-flex;
+    padding: 4px 20px;
+    margin-left: 10px;
+    border: 1px solid transparent;
+}
+
+.site form nav button {
+    font-size: 12px;
+    display: inline-flex;
+    padding: 4px 20px;
+    margin-left: 10px;
+    border: 1px solid transparent;
+}
+
+.site form nav :where(.next,
+    .submit) {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+}
+
+
+.site form nav .prev {
+    border-color: var(--gray-color);
+}
+
+.site form .split {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+
+/* highlight */
+
+.site .highlight .head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.site .highlight .thumbnail {
+    width: 100px;
+    height: 100px;
+    margin: 0 20px 20px;
+    border-radius: 50%;
+    background-color: #7f8fa6;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.site .highlight .thumbnail img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.site .highlight .head span {
+    color: var(--gray-color);
+}
+
+.site .highlight .head h4 {
+    font-size: 18px;
+}
+
+.site .highlight .wrapper {
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid var(--light-color);
+}
+
+.site .highlight .wrapper h4 {
+    color: var(--gray-color);
+    margin-bottom: 50px;
+}
+
+.site .highlight .field-selected {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin-bottom: 50px;
+}
+
+.site .highlight .faculty .icon {
+    width: 30px;
+    height: 30px;
+    font-size: 10px;
+}
+
+.site .highlight .faculty h3 {
+    margin: 0;
+}
+
+.site .highlight .head .divider {
+    height: 40px;
+    width: 1px;
+    background-color: var(--border-color);
+    transform: rotate(25deg);
+}
+
+.site .form-child.active~.wrapper>.highlight {
+    display: none;
+}
+
+.site .field.active~nav :where(.prev,
+    .submit),
+.site .field~.wrapper .profile.active~nav .submit {
+    display: none;
+}
+
+/* FORM */
+
+.site form :where(.profile,
+    .story) .heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: normal;
+    margin-bottom: 50px;
+}
+
+.site form :where(.profile,
+    .story) .heading .icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white-color);
+    background-color: var(--dark-white);
+    border-radius: 50%;
+}
+
+.site form .profile .row:not(:last-child) {
+    margin-bottom: 50px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.site form .personal .upload p input {
+    height: auto;
+    cursor: pointer;
+    color: var(--gray-color);
+}
+
+.site form .personal .upload p input::-webkit -file-upload-button {
+    color: var(--white-color);
+    padding: 5px 10px;
+    background-color: var(--dark-color);
+    border-radius: 4px;
+    border: 0;
+    cursor: pointer;
+    transition: background-color .3s;
+}
+
+.site form .personal .upload p input:hover::-webkit -file-upload-button {
+    background-color: var(--primary-color);
+}
+
+.site input,
+.site select,
+.site textarea {
+    font: inherit;
+    padding: 12px 20px;
+    height: 42px;
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    outline: 0;
+    font-size: 13px;
+    min-width: 212px;
+    width: 100%;
+    transition: border .3s;
+}
+
+.site :where(input,
+    select,
+    textarea):focus {
+    border-color: var(--gray-color);
+}
+
+.site input~input {
+    margin-top: 20px;
+}
+
+.site input::placeholder,
+.site select {
+    font-family: 'Rubik';
+    color: var(--gray-color);
+}
+
+.site form .row> :where(.split,
+    p) {
+    margin-bottom: 20px;
+}
+
+.site form p {
+    display: flex;
+    flex-direction: column;
+}
+
+.site form p label {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.site select {
+    appearance: none;
+}
+
+.site form .custom-select {
+    position: relative;
+    line-height: normal;
+}
+
+.site form .custom-select i {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.site form .birth input {
+    min-width: 80px;
+}
+
+.site input::-webkit-outer-spin-button,
+.site input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* for firefox */
+.site input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.site textarea {
+    height: auto;
+}
+
+@media screen and (min-width: 768px) {
+    .site .highlight {
+        padding-top: 30px;
+        margin-top: 100px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .site form>.wrapper {
+        display: grid;
+        grid-gap: 50px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .site form .personal>*:not(.heading) {
+        padding-left: 50px;
+    }
+}

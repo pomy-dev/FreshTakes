@@ -1,0 +1,148 @@
+.menu-filters {
+  margin-top: 1rem;
+  font-weight: 900;
+  font-size: 15px;
+  width: 30rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-filters span {
+  color: #7d8da1;
+}
+
+.menu-filters select {
+  float: right;
+  height: 2rem;
+  width: 15rem;
+  border-radius: 5px;
+}
+
+.menu-section {
+  height: min-content;
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.menu-header {
+  padding: 0.7rem 40rem 0.7rem 0.7rem;
+  width: 30rem;
+  border: 0.5px solid #d6d6d6;
+  border-left: 0.5rem solid #ff4edc;
+}
+
+.menu-outline {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 1rem 0 0 1rem;
+  border-radius: 2rem;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 1rem 2rem #dddbdb;
+}
+
+.menu-outline .icon img {
+  object-fit: cover;
+  border-radius: 1rem;
+  height: 5rem;
+  width: 5rem;
+}
+
+.meal-dis {
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 800;
+}
+
+.menu-outline .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.menu-outline .actions button {
+  padding: 10px;
+  margin: 0 5px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.menu-outline .actions button[type='reset'] {
+  background: #7380ec;
+}
+
+.menu-outline .actions button[type='reset']:hover {
+  background: #a4acf5;
+}
+
+.menu-outline .actions button[type='submit'] {
+  background: #ff7782;
+}
+
+.menu-outline .actions button[type='submit']:hover {
+  background: #f6a5ab;
+}
+
+/* **********8 MEDIA QUERY ****************/
+
+@media screen and (max-width:1200px) {
+  .menu-filters {
+    width: 65%;
+  }
+
+  .menu-section {
+    width: 94%;
+  }
+
+  .menu-header {
+    width: 80%;
+  }
+
+  .menu-outline .icon img {
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+/* **************** MEDIA QUERY PHONE ************************/
+
+@media screen and (max-width:768px) {
+  .menu-filters {
+    width: 20rem;
+  }
+
+  .menu-section {
+    width: 100%;
+  }
+
+  .menu-header {
+    width: 20rem;
+    padding: 0.7rem 13rem 0.7rem 0.7rem;
+  }
+
+  .menu-outline {
+    margin: 1rem 0.5rem;
+  }
+
+  .menu-outline .icon img {
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+  }
+
+  .meal-dis {
+    flex-direction: row;
+  }
+
+  @keyframes menuLeft {
+    to {
+      left: 0;
+    }
+  }
+
+}
